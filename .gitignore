@@ -1,0 +1,16 @@
+# Environment / secrets - NEVER commit these
+.env
+.env.*
+!.env.example
+
+# Docker env compose files
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

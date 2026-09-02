@@ -10,5 +10,3 @@ We use micro-service architecture
 Suparbase and POSTGre SQL as database
 Version control by github
 Frontend - React
-
-suparbase password: IUsXyDCd2MqPChPG
