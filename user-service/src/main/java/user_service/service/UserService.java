@@ -40,10 +40,16 @@ public class UserService {
         return modelMapper.map(updatedUser, UserDTO.class);
     }
 
-    public String deleteUser(UserDTO userDTO){
+    public String deleteUser(long userId){
 
-        userRepository.delete(modelMapper.map(userDTO, User.class));
+        userRepository.deleteById(userId);
         return "User Deleted Successfully";
+    }
+
+    public UserDTO getUserById(long userId){
+
+        User user = userRepository.getUserById(userId);
+        return modelMapper.map(user, UserDTO.class);
     }
 
 

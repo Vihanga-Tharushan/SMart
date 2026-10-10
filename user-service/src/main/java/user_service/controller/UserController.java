@@ -22,6 +22,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/user/{userId}")
+    public UserDTO getUserById(@PathVariable long userId){
+        return userService.getUserById(userId);
+
+    }
+
     @PostMapping("/adduser")
     public UserDTO saveUser(@RequestBody UserDTO userDTO){
 
@@ -34,9 +40,9 @@ public class UserController {
         return userService.updateUser(userDTO);
     }
 
-    @DeleteMapping("/deleteuser")
-    public String deleteUser(@RequestBody UserDTO userDTO){
-        return userService.deleteUser(userDTO);
+    @DeleteMapping("/deleteuser/{userId}")
+    public String deleteUser(@PathVariable long userId){
+        return userService.deleteUser(userId);
     }
 
 
