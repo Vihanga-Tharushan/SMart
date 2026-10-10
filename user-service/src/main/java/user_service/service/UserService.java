@@ -1,55 +1,50 @@
 package user_service.service;
 
+import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import user_service.dto.UserDTO;
 import user_service.model.User;
 import user_service.repository.UserRepository;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public List<UserDTO> getAllUsers(){
+        List<User>userList = userRepository.findAll();
+        return modelMapper.map(userList, new TypeToken<List<UserDTO>>(){}.getType());
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public UserDTO saveUser(UserDTO userDTO){
+
+        User user = modelMapper.map(userDTO, User.class);
+        user.setId(null);
+        User savedUser = userRepository.save(user);
+        return modelMapper.map(savedUser, UserDTO.class);
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public UserDTO updateUser(UserDTO userDTO){
+        User user = modelMapper.map(userDTO, User.class);
+        User updatedUser = userRepository.save(user);
+        return modelMapper.map(updatedUser, UserDTO.class);
     }
 
-    public User createUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("Username already taken: " + user.getUsername());
-        }
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already in use: " + user.getEmail());
-        }
-        return userRepository.save(user);
+    public String deleteUser(UserDTO userDTO){
+
+        userRepository.delete(modelMapper.map(userDTO, User.class));
+        return "User Deleted Successfully";
     }
 
-    public User updateUser(Long id, User updatedUser) {
-        User user = getUserById(id);
-        user.setUsername(updatedUser.getUsername());
-        user.setEmail(updatedUser.getEmail());
-        user.setRole(updatedUser.getRole());
-        user.setPhone(updatedUser.getPhone());
-        user.setImageUrl(updatedUser.getImageUrl());
-        user.setEmployeeCode(updatedUser.getEmployeeCode());
-        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-            user.setPassword(updatedUser.getPassword());
-        }
-        return userRepository.save(user);
-    }
 
-    public void deleteUser(Long id) {
-        User user = getUserById(id);
-        userRepository.delete(user);
-    }
 }
