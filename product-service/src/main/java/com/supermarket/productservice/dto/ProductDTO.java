@@ -3,21 +3,20 @@ package com.supermarket.productservice.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class ProductDTO {
 
-    private UUID id;
-    private String sku;
-    private String barcode;
-    private String name;
-    private String description;
-    private UUID categoryId;
+    private Long id;
     private String brand;
-    private String unitOfMeasure;
+    private Long categoryId;
+    private String name;
+    private BigDecimal price;
+    private String description;
+    private String unit;
     private String imageUrl;
     private Boolean isActive;
     private Instant createdAt;

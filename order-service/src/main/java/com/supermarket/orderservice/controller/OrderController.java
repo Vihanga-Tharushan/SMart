@@ -1,14 +1,11 @@
 package com.supermarket.orderservice.controller;
 
 import com.supermarket.orderservice.dto.OrderDTO;
-import com.supermarket.orderservice.model.ActorType;
-import com.supermarket.orderservice.model.OrderStatus;
 import com.supermarket.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,27 +20,22 @@ public class OrderController {
     }
 
     @GetMapping("/order/{orderId}")
-    public OrderDTO getOrderById(@PathVariable UUID orderId) {
+    public OrderDTO getOrderById(@PathVariable Long orderId) {
         return orderService.getOrderById(orderId);
     }
 
-    @GetMapping("/order/number/{orderNumber}")
-    public OrderDTO getOrderByNumber(@PathVariable String orderNumber) {
-        return orderService.getOrderByNumber(orderNumber);
-    }
-
     @GetMapping("/orders/customer/{customerId}")
-    public List<OrderDTO> getOrdersByCustomer(@PathVariable UUID customerId) {
+    public List<OrderDTO> getOrdersByCustomer(@PathVariable Long customerId) {
         return orderService.getOrdersByCustomer(customerId);
     }
 
     @GetMapping("/orders/branch/{branchId}")
-    public List<OrderDTO> getOrdersByBranch(@PathVariable UUID branchId) {
+    public List<OrderDTO> getOrdersByBranch(@PathVariable Long branchId) {
         return orderService.getOrdersByBranch(branchId);
     }
 
     @GetMapping("/orders/status/{status}")
-    public List<OrderDTO> getOrdersByStatus(@PathVariable OrderStatus status) {
+    public List<OrderDTO> getOrdersByStatus(@PathVariable String status) {
         return orderService.getOrdersByStatus(status);
     }
 
@@ -58,16 +50,12 @@ public class OrderController {
     }
 
     @PutMapping("/order/{orderId}/status")
-    public OrderDTO updateStatus(@PathVariable UUID orderId,
-                                 @RequestParam OrderStatus status,
-                                 @RequestParam(required = false) UUID changedBy,
-                                 @RequestParam(required = false) ActorType actorType,
-                                 @RequestParam(required = false) String reason) {
-        return orderService.updateStatus(orderId, status, changedBy, actorType, reason);
+    public OrderDTO updateStatus(@PathVariable Long orderId, @RequestParam String status) {
+        return orderService.updateStatus(orderId, status);
     }
 
     @DeleteMapping("/deleteorder/{orderId}")
-    public String deleteOrder(@PathVariable UUID orderId) {
+    public String deleteOrder(@PathVariable Long orderId) {
         return orderService.deleteOrder(orderId);
     }
 

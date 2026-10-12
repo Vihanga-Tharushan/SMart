@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,22 +20,12 @@ public class ProductController {
     }
 
     @GetMapping("/product/{productId}")
-    public ProductDTO getProductById(@PathVariable UUID productId) {
+    public ProductDTO getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
 
-    @GetMapping("/product/sku/{sku}")
-    public ProductDTO getProductBySku(@PathVariable String sku) {
-        return productService.getProductBySku(sku);
-    }
-
-    @GetMapping("/product/barcode/{barcode}")
-    public ProductDTO getProductByBarcode(@PathVariable String barcode) {
-        return productService.getProductByBarcode(barcode);
-    }
-
     @GetMapping("/products/category/{categoryId}")
-    public List<ProductDTO> getProductsByCategory(@PathVariable UUID categoryId) {
+    public List<ProductDTO> getProductsByCategory(@PathVariable Long categoryId) {
         return productService.getProductsByCategory(categoryId);
     }
 
@@ -51,7 +40,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/deleteproduct/{productId}")
-    public String deleteProduct(@PathVariable UUID productId) {
+    public String deleteProduct(@PathVariable Long productId) {
         return productService.deleteProduct(productId);
     }
 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,17 +20,17 @@ public class OrderItemController {
     }
 
     @GetMapping("/orderitem/{orderItemId}")
-    public OrderItemDTO getOrderItemById(@PathVariable UUID orderItemId) {
+    public OrderItemDTO getOrderItemById(@PathVariable Long orderItemId) {
         return orderItemService.getOrderItemById(orderItemId);
     }
 
     @GetMapping("/orderitems/order/{orderId}")
-    public List<OrderItemDTO> getOrderItemsByOrder(@PathVariable UUID orderId) {
+    public List<OrderItemDTO> getOrderItemsByOrder(@PathVariable Long orderId) {
         return orderItemService.getOrderItemsByOrder(orderId);
     }
 
     @GetMapping("/orderitems/product/{productId}")
-    public List<OrderItemDTO> getOrderItemsByProduct(@PathVariable UUID productId) {
+    public List<OrderItemDTO> getOrderItemsByProduct(@PathVariable Long productId) {
         return orderItemService.getOrderItemsByProduct(productId);
     }
 
@@ -46,7 +45,7 @@ public class OrderItemController {
     }
 
     @DeleteMapping("/deleteorderitem/{orderItemId}")
-    public String deleteOrderItem(@PathVariable UUID orderItemId) {
+    public String deleteOrderItem(@PathVariable Long orderItemId) {
         return orderItemService.deleteOrderItem(orderItemId);
     }
 

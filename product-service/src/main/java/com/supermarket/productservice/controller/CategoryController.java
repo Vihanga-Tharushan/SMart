@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,13 +20,8 @@ public class CategoryController {
     }
 
     @GetMapping("/category/{categoryId}")
-    public CategoryDTO getCategoryById(@PathVariable UUID categoryId) {
+    public CategoryDTO getCategoryById(@PathVariable Long categoryId) {
         return categoryService.getCategoryById(categoryId);
-    }
-
-    @GetMapping("/category/slug/{slug}")
-    public CategoryDTO getCategoryBySlug(@PathVariable String slug) {
-        return categoryService.getCategoryBySlug(slug);
     }
 
     @PostMapping("/addcategory")
@@ -41,7 +35,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/deletecategory/{categoryId}")
-    public String deleteCategory(@PathVariable UUID categoryId) {
+    public String deleteCategory(@PathVariable Long categoryId) {
         return categoryService.deleteCategory(categoryId);
     }
 

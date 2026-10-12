@@ -6,11 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Check;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -24,8 +21,8 @@ import java.util.UUID;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
@@ -33,35 +30,16 @@ public class OrderItem {
     @EqualsAndHashCode.Exclude
     private Order order;
 
-    @Column(name = "product_id")
-    private UUID productId;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
-    @Column(name = "product_name", nullable = false, length = 200)
+    @Column(name = "product_name", nullable = false, length = 255)
     private String productName;
 
-    @Column(name = "product_sku", nullable = false, length = 50)
-    private String productSku;
-
-    @Column(name = "unit_of_measure", nullable = false, length = 20)
-    private String unitOfMeasure;
-
-    @Column(nullable = false, precision = 12, scale = 3)
-    private BigDecimal quantity;
+    @Column(nullable = false)
+    private Integer quantity;
 
     @Column(name = "unit_price", nullable = false, precision = 12, scale = 2)
     private BigDecimal unitPrice;
-
-    @Column(name = "discount_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal discountAmount = BigDecimal.ZERO;
-
-    @Column(name = "tax_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal taxAmount = BigDecimal.ZERO;
-
-    @Column(name = "line_total", nullable = false, precision = 12, scale = 2)
-    private BigDecimal lineTotal;
-
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private Instant createdAt;
 
 }
