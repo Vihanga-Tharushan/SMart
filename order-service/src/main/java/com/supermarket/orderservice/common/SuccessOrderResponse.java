@@ -1,12 +1,14 @@
 package com.supermarket.orderservice.common;
 
 import com.supermarket.orderservice.dto.OrderDTO;
+import lombok.Getter;
 
-public class SuccessOrderRespose implements OrderResponse{
+@Getter
+public class SuccessOrderResponse implements OrderResponse{
 
     private final OrderDTO order;
 
-    public SuccessOrderRespose(OrderDTO order){
+    public SuccessOrderResponse(OrderDTO order){
         this.order = order;
     }
 }

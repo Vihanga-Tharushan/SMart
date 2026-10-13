@@ -79,6 +79,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.supermarket</groupId>
+            <artifactId>inventory-service</artifactId>
+            <version>${project.parent.version}</version>
+
+        </dependency>
+
 
 
 
